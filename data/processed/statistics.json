@@ -1,0 +1,12 @@
+{
+  "output_file": "data/processed/all_chunks.json",
+  "total_chunks": 251,
+  "total_characters": 273784,
+  "total_words": 42751,
+  "chunks_by_category": {
+    "Educational": 128,
+    "News": 20,
+    "Research Publication": 69,
+    "Technical Documentation": 34
+  }
+}
