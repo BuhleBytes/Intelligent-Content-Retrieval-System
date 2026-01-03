@@ -1,0 +1,11 @@
+{
+  "model_name": "all-mpnet-base-v2",
+  "embedding_dimensions": 768,
+  "total_chunks": 251,
+  "batch_size": 32,
+  "generation_time_seconds": 133.203914,
+  "normalised": true,
+  "file_size_bytes": 771072,
+  "file_size_mb": 0.7353515625,
+  "timestamp": "2026-01-03T04:57:08.325320"
+}
