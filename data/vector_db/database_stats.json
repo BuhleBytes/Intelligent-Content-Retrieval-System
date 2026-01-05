@@ -1,0 +1,12 @@
+{
+  "collection_name": "intelligent_content_retrieval",
+  "total_documents": 251,
+  "metadata": {
+    "description": "Multi-domain content for semantic search",
+    "dimensions": "768",
+    "hnsw:space": "cosine",
+    "created_date": "2026-01-05T01:53:22.834897",
+    "model": "all-mpnet-base-v2"
+  },
+  "timestamp": "2026-01-05T03:55:32.924324"
+}
