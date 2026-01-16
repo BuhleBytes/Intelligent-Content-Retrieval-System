@@ -1,5 +1,5 @@
 """
-Part 5: Semantic Search Interface (CLEANED UP VERSION)
+Part 5: Semantic Search Interface 
 Intelligent Content Retrieval System
 
 Author: Buhle Mlandu

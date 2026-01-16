@@ -1,0 +1,35 @@
+# ============================================================================
+# Intelligent Content Retrieval System - Requirements
+# Author: Buhle Mlandu
+# ============================================================================
+
+# ===== PART 1: Web Scraping =====
+requests==2.32.3
+beautifulsoup4==4.14.3
+lxml==6.0.2
+
+# ===== PART 2: Text Processing =====
+ftfy==6.3.1
+clean-text==0.6.0
+
+# ===== PART 3: Embeddings Generation =====
+sentence-transformers==5.2.0
+torch==2.9.1
+numpy==1.26.4
+
+# ===== PART 4 & 5: Vector Database & Search =====
+chromadb==1.4.0
+
+# ===== BONUS: Web Interface =====
+Flask==3.1.2
+flask-cors==6.0.2
+
+# ===== BONUS: LLM Enhancement =====
+anthropic==0.75.0
+python-dotenv==1.2.1
+
+# ===== Jupyter Notebook (for submission) =====
+ipykernel==7.1.0
+ipython==9.7.0
+jupyter_client==8.6.3
+jupyter_core==5.9.1
