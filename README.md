@@ -1,7 +1,6 @@
 # Intelligent Content Retrieval System
 
 **Author:** Buhle Mlandu  
-**Course:** [Your Course Code]  
 **Date:** January 2026
 
 ---
@@ -82,6 +81,184 @@ python part05SearchInterface.py         # Interactive search CLI
 
 ---
 
+## 📊 Manual Relevance Evaluation (Testing)
+
+**Purpose:** Compare semantic vs hybrid search performance through manual relevance ratings.
+
+This script runs 15 test queries using both search modes and collects manual ratings (0-2 scale) for each result. It then generates comparative metrics and visualizations.
+
+### Run Evaluation
+
+```bash
+# From project root directory
+python -m testing.manualRelevanceEvaluation
+```
+
+**Process:**
+
+- Runs 14 queries × 2 modes (semantic + hybrid) × 5 results = 140 total ratings
+- You rate each result: 0 (Not Relevant), 1 (Somewhat), 2 (Highly Relevant)
+- Generates comparative metrics and graphs
+
+**Output Location:** `evaluation_results/`
+
+- `comparison_rating_distribution.png` - Rating distribution by mode
+- `comparison_rating_by_rank.png` - Quality by rank position
+- `comparison_overall_metrics.png` - Overall performance comparison
+- `comparative_results.csv` - Raw evaluation data
+- `comparative_metrics.json` - Calculated metrics (Precision@5, MRR, etc.)
+
+---
+
+## 🌐 API Endpoints (BONUS)
+
+**Live API:** https://web-production-f2b40.up.railway.app
+
+### Core Endpoints
+
+#### `GET /`
+
+API information and available endpoints
+
+#### `GET /health`
+
+System health check
+
+```json
+{
+  "status": "healthy",
+  "model_loaded": true,
+  "database_loaded": true,
+  "document_count": 251
+}
+```
+
+#### `GET /stats`
+
+Database statistics and content distribution
+
+```json
+{
+  "total_documents": 251,
+  "model": "all-mpnet-base-v2",
+  "dimensions": 768,
+  "categories": { ... }
+}
+```
+
+#### `POST /search`
+
+Semantic search with optional AI enhancement
+
+```json
+{
+  "query": "What is machine learning?",
+  "n_results": 5,
+  "filter_category": "Educational", // Optional
+  "enable_llm": true // Optional: AI enhancement
+}
+```
+
+**Response:**
+
+```json
+{
+  "query": "What is machine learning?",
+  "search_mode": "semantic",
+  "results": [
+    {
+      "text": "...",
+      "similarity": 0.8234,
+      "enhanced_text": "...",        // If enable_llm: true
+      "relevance": "HIGH",            // If enable_llm: true
+      "metadata": { ... }
+    }
+  ],
+  "enhancement_info": {              // If enable_llm: true
+    "auto_enhanced": 5,
+    "pending_enhancement": 0,
+    "total_tokens": 1234,
+    "cost_estimate": 0.0111
+  }
+}
+```
+
+#### `POST /hybrid`
+
+Hybrid search (semantic + keyword matching)
+
+```json
+{
+  "query": "gorilla conservation",
+  "keywords": ["gorilla", "conservation", "efforts"],
+  "n_results": 5,
+  "semantic_weight": 0.7,
+  "keyword_weight": 0.3,
+  "enable_llm": false
+}
+```
+
+**Response:**
+
+```json
+{
+  "search_mode": "hybrid",
+  "results": [
+    {
+      "text": "...",
+      "hybrid_score": 0.7845,
+      "semantic_score": 0.8123,
+      "keyword_score": 0.6667,
+      "metadata": { ... }
+    }
+  ]
+}
+```
+
+#### `POST /enhance`
+
+On-demand enhancement for specific chunks (beyond first 5)
+
+```json
+{
+  "query": "What is machine learning?",
+  "results": [ ... ],              // Full results array
+  "indices": [5, 6, 7]             // Chunks to enhance
+}
+```
+
+#### `GET /cache/stats`
+
+Cache performance statistics
+
+#### `POST /cache/clear`
+
+Clear cached results
+
+### Try It Out
+
+**Using curl:**
+
+```bash
+curl -X POST https://web-production-f2b40.up.railway.app/search \
+  -H "Content-Type: application/json" \
+  -d '{"query": "What is machine learning?", "n_results": 3}'
+```
+
+**Using Python:**
+
+```python
+import requests
+
+response = requests.post(
+    'https://web-production-f2b40.up.railway.app/search',
+    json={'query': 'What is machine learning?', 'n_results': 5}
+)
+print(response.json())
+```
+
+---
+
 ## 🌐 Run Web Interface Locally (BONUS)
 
 **Note:** Web interface is already deployed. Local setup is optional for development/testing.
@@ -139,6 +316,14 @@ Mlandu_ContentRetrieval/
 │   ├── search_query_1.png
 │   ├── search_query_2.png
 │   └── search_query_3.png
+├── testing/                          # Evaluation scripts
+│   └── manualRelevanceEvaluation.py  # Manual relevance testing
+├── evaluation_results/               # Evaluation outputs
+│   ├── comparison_rating_distribution.png
+│   ├── comparison_rating_by_rank.png
+│   ├── comparison_overall_metrics.png
+│   ├── comparative_results.csv
+│   └── comparative_metrics.json
 ├── data/                             # Generated data folders
 │   ├── raw/
 │   ├── processed/
@@ -157,7 +342,7 @@ Mlandu_ContentRetrieval/
 
 ---
 
-## 🛠️ Technologies
+## Technologies
 
 | Component   | Technology                                |
 | ----------- | ----------------------------------------- |
@@ -210,18 +395,23 @@ pip install -r requirements.txt --force-reinstall
 **Out of memory:**
 Reduce `batch_size` in `part03EmbeddingsGeneration.py` (32 → 16)
 
+**Module not found when running testing scripts:**
+Use the `-m` flag:
+
+```bash
+python -m testing.manualRelevanceEvaluation
+```
+
 ---
 
 ## 👤 Author
 
-**Buhle Mlandu**  
-mlnhon001@myuct.ac.za  
-University of Cape Town  
-January 2026
+**Buhle Mlandu**
 
 ---
 
-## 📄 Additional Resources
+## Additional Resources
 
 - Technical Report: `technical_report.pdf`
 - Screenshots: `screenshots/` folder
+- Evaluation Results: `evaluation_results/` folder

@@ -15,7 +15,6 @@ import os
 import time
 import random
 import re
-import terminal_ui as ui
 from bs4 import BeautifulSoup
 from datetime import datetime
 from urllib.robotparser import RobotFileParser

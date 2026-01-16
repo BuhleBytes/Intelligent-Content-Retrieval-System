@@ -33,7 +33,6 @@ function App() {
     }
   }, []);
 
-  // ✅ FIX: Save to localStorage AND handle empty case
   useEffect(() => {
     if (savedChats.length > 0) {
       localStorage.setItem(
@@ -80,7 +79,6 @@ function App() {
     console.log("Current messages:", currentMessages.length);
     console.log("Saved chats before:", savedChats.length);
 
-    // ✅ FIX: Save current chat ONLY if it has messages
     if (currentChatId && currentMessages.length > 0) {
       const chatToSave = {
         id: currentChatId,
@@ -111,7 +109,6 @@ function App() {
       console.log("⚠️ Current chat has no messages, not saving");
     }
 
-    // ✅ FIX: Calculate next chat number AFTER saving
     // Wait for state to update, then create new chat
     setTimeout(() => {
       setSavedChats((currentSaved) => {

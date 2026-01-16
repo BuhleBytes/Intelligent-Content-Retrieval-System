@@ -3,7 +3,6 @@ import { Card } from "./ui/card";
 
 export function ChatMessage({ message }) {
   const formatTime = (date) => {
-    // ✅ FIX: Handle both Date objects and strings
     const dateObj = date instanceof Date ? date : new Date(date);
 
     // Check if valid date
